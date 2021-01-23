@@ -10,12 +10,12 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using mshtml;
 namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
         string ID, pwd;
+        string Version = "2.0.0";
         string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.ini");
         public static Form2 f2;
         DateTime taptime;
@@ -147,13 +147,13 @@ namespace WindowsFormsApp1
                     this.Opacity = 1;
                 }
 
-                this.Text = "清华大学疫情日报自动打卡机V" + THU_AutoRegistry.Properties.Resources.Version + "——" + current_status.Text;
+                this.Text = "清华大学疫情日报自动打卡机V" + Version + "——" + current_status.Text;
                 string logtext = "ID=" + ID + "\npwd=" + pwd + "\nlastregistertime=" + taptimes;
                 File.WriteAllText(path, logtext);
                 timer1.Start();
                 isprogressing = false;
                 nextstr = taptime.AddHours(Convert.ToDouble(textBox5.Text)).ToString();
-                notifyIcon1.Text = "清华自动打卡机V" + THU_AutoRegistry.Properties.Resources.Version + "\n下次打卡时间：" + nextstr;
+                notifyIcon1.Text = "清华自动打卡机V" + Version + "\n下次打卡时间：" + nextstr;
                 next_time.Text = nextstr;
                 Hasjustcompleted = false;
             }
@@ -185,7 +185,7 @@ namespace WindowsFormsApp1
                 if (webBrowser1.ReadyState < WebBrowserReadyState.Complete) return;
                 //  if (webBrowser1.ReadyState < WebBrowserReadyState.Complete || webBrowser1.Url.ToString() == LastUrl) return;
                 // LastUrl = webBrowser1.Url.ToString();
-                webBrowser1.Navigate("https://thos.tsinghua.edu.cn/fp/view?m=fp#from=hall&serveID=d42b05be-1ad8-4d96-8c1e-14be2bb24e26&act=fp/serveapply");
+                webBrowser1.Navigate("https://thos.tsinghua.edu.cn/fp/view?m=fp#from=hall&serveID=b44e2daf-0ef6-4d11-a115-0eb0d397934f&act=fp/serveapply");
             }
 
         }
@@ -353,7 +353,7 @@ namespace WindowsFormsApp1
                     {
                         tiptext = "下次打卡预计时间：" + next.ToString();
                         nextstr = tiptext;
-                        notifyIcon1.Text = "清华自动打卡机V" + THU_AutoRegistry.Properties.Resources.Version + nextstr;
+                        notifyIcon1.Text = "清华自动打卡机V" + Version + nextstr;
                         notifyIcon1.ShowBalloonTip(3000, "打卡机已隐藏", tiptext, ToolTipIcon.Info);
                     }
                     else if (isprogressing)//正在访问网页
@@ -464,7 +464,7 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Text = "清华大学疫情日报自动打卡机V" + THU_AutoRegistry.Properties.Resources.Version;
+            this.Text = "清华大学疫情日报自动打卡机V" + Version;
             Handle1 = this.Handle;
             //timer1.Start();
             //从log文件读取账密和上次打卡时间
@@ -506,7 +506,7 @@ namespace WindowsFormsApp1
                 {
                     nextstr = "\n下次打卡时间：";
                 }
-                notifyIcon1.Text = "清华自动打卡机V" + THU_AutoRegistry.Properties.Resources.Version + nextstr;
+                notifyIcon1.Text = "清华自动打卡机V" + Version + nextstr;
             }
 
         }
